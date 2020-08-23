@@ -6,7 +6,7 @@ class OSMSearchResults extends React.Component {
     super(props);
     this.state = { nearby: undefined };
   }
-  requestOSMData(position) {
+  requestOSMData = (position) => {
     // unpack user current location
     console.log(`Searching for water fountains near:`, position.coords);
     var user_lat = position.coords.latitude;

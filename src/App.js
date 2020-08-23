@@ -4,9 +4,9 @@ import { NominatimJS } from "nominatim-search";
 class OSMSearchResults extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { nearby: undefined };
+    this.state = { nearby: [] };
   }
-  requestOSMData(position) {
+  requestOSMData = (position) => {
     // unpack user current location
     console.log(`Searching for water fountains near:`, position.coords);
     var user_lat = position.coords.latitude;
@@ -30,7 +30,7 @@ class OSMSearchResults extends React.Component {
     return (
       <div>
         <ul>
-          {this.state.nearby.map((result) => (
+          {this.state.nearby.length > 0 && this.state.nearby.map((result) => (
             // generate a google maps link for each nearby water fountain
             <li>
               {`https://www.google.com/maps/search/?api=1&query=${result.lat},${result.lon}`}

@@ -1,23 +1,52 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { NominatimJS } from "nominatim-search";
+
+class OSMSearchResults extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { nearby: undefined };
+  }
+  requestOSMData(position) {
+    // unpack user current location
+    console.log(`Searching for water fountains near:`, position.coords);
+    var user_lat = position.coords.latitude;
+    var user_lon = position.coords.longitude;
+
+    // request water fountains (drinking water) near user
+    NominatimJS.search({
+      q: `drinking water near ${user_lat}, ${user_lon}`,
+    })
+      .then((results) => {
+        this.setState({ nearby: results });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition(this.requestOSMData);
+  }
+  render() {
+    return (
+      <div>
+        <ul>
+          {this.state.nearby.map((result) => (
+            // generate a google maps link for each nearby water fountain
+            <li>
+              {`https://www.google.com/maps/search/?api=1&query=${result.lat},${result.lon}`}
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+}
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <OSMSearchResults />
       </header>
     </div>
   );

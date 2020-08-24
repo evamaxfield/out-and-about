@@ -133,32 +133,34 @@ function App() {
           All links below route to Google Maps.
         </p>
       </header>
-      <div className="wrap-container">
-        <OSMSearchResults
-          targetEntity="drinking water"
-          displayName="Water Fountains"
-          sliceItemNameFrom={0}
-          sliceItemNameTo={2}
-        />
-        <OSMSearchResults
-          targetEntity="toilet"
-          displayName="Restrooms"
-          sliceItemNameFrom={1}
-          sliceItemNameTo={3}
-        />
+      <div className="page-content">
+        <div className="wrap-container">
+          <OSMSearchResults
+            targetEntity="toilet"
+            displayName="Restrooms"
+            sliceItemNameFrom={1}
+            sliceItemNameTo={3}
+          />
+          <OSMSearchResults
+            targetEntity="drinking water"
+            displayName="Water Fountains"
+            sliceItemNameFrom={0}
+            sliceItemNameTo={2}
+          />
+        </div>
+        <footer>
+          <p>
+            Help make this better --{" "}
+            <a
+              href="https://github.com/JacksonMaxfield/out-and-about"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Contribute on Github!
+            </a>
+          </p>
+        </footer>
       </div>
-      <footer>
-        <p>
-          Help make this better --{" "}
-          <a
-            href="https://github.com/JacksonMaxfield/out-and-about"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Contribute on Github!
-          </a>
-        </p>
-      </footer>
     </div>
   );
 }

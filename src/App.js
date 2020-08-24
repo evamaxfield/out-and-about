@@ -124,6 +124,14 @@ class OSMSearchResults extends React.Component {
 function App() {
   return (
     <div className="App">
+    <header>
+        <h1>Out and About</h1>
+
+        <p>
+            Public amenities near you.<br/>
+            All links below route to Google Maps.
+        </p>
+    </header>
       <div className="wrap-container">
         <OSMSearchResults
           targetEntity="drinking water"
@@ -138,7 +146,10 @@ function App() {
           sliceItemNameTo={3}
         />
       </div>
-      <footer></footer>
+      <footer>
+        <p>Help make this better -- <a href="https://github.com/JacksonMaxfield/out-and-about" target="_blank"
+        rel="noopener noreferrer">Contribute on Github!</a></p>
+      </footer>
     </div>
   );
 }

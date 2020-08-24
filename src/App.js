@@ -61,9 +61,10 @@ class OSMSearchResults extends React.Component {
       item.lat,
       item.lon
     );
-    return `${item.display_name.split(", ").slice(0, 2).join(", ")} -- ${
-      distanceFromUser.miles
-    } miles away`;
+    return `${item.display_name
+      .split(", ")
+      .slice(this.props.sliceItemNameFrom, this.props.sliceItemNameTo)
+      .join(", ")} -- ${distanceFromUser.miles} miles away`;
   };
 
   componentDidMount() {
@@ -73,6 +74,7 @@ class OSMSearchResults extends React.Component {
     if (this.state.nearby.length === 0) {
       return (
         <div>
+          <h3>Nearby {this.props.displayName}:</h3>
           <p>Loading...</p>
         </div>
       );
@@ -80,6 +82,7 @@ class OSMSearchResults extends React.Component {
     if (this.state.errored) {
       return (
         <div>
+          <h3>Nearby {this.props.displayName}:</h3>
           <p>Something went wrong...</p>
         </div>
       );
@@ -113,10 +116,14 @@ function App() {
       <OSMSearchResults
         targetEntity="drinking water"
         displayName="Water Fountains"
+        sliceItemNameFrom={0}
+        sliceItemNameTo={2}
       />
       <OSMSearchResults
         targetEntity="toilet"
         displayName="Restrooms"
+        sliceItemNameFrom={1}
+        sliceItemNameTo={3}
       />
       <footer></footer>
     </div>

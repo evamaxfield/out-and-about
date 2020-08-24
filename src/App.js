@@ -54,17 +54,28 @@ class OSMSearchResults extends React.Component {
     return `https://www.google.com/maps/search/?api=1&query=${item.lat},${item.lon}`;
   };
 
-  getItemDisplay = (item) => {
+  getItemNameDisplay = (item) => {
+    return item.display_name
+      .split(", ")
+      .slice(this.props.sliceItemNameFrom, this.props.sliceItemNameTo)
+      .join(", ");
+  };
+
+  getItemDistanceDisplay = (item) => {
     var distanceFromUser = distance(
       this.state.userLat,
       this.state.userLon,
       item.lat,
       item.lon
     );
-    return `${item.display_name
-      .split(", ")
-      .slice(this.props.sliceItemNameFrom, this.props.sliceItemNameTo)
-      .join(", ")} -- ${distanceFromUser.miles} miles away`;
+
+    return `${distanceFromUser.miles} miles away`;
+  };
+
+  getItemDisplay = (item) => {
+    return `${this.getItemNameDisplay(item)} -- ${this.getItemDistanceDisplay(
+      item
+    )}`;
   };
 
   componentDidMount() {
@@ -73,7 +84,7 @@ class OSMSearchResults extends React.Component {
   render() {
     if (this.state.nearby.length === 0) {
       return (
-        <div>
+        <div className="osm-results-container">
           <h3>Nearby {this.props.displayName}:</h3>
           <p>Loading...</p>
         </div>
@@ -81,14 +92,14 @@ class OSMSearchResults extends React.Component {
     }
     if (this.state.errored) {
       return (
-        <div>
+        <div className="osm-results-container">
           <h3>Nearby {this.props.displayName}:</h3>
           <p>Something went wrong...</p>
         </div>
       );
     }
     return (
-      <div>
+      <div className="osm-results-container">
         <h3>Nearby {this.props.displayName}:</h3>
         <ul>
           {this.state.nearby.length > 0 &&
@@ -113,18 +124,20 @@ class OSMSearchResults extends React.Component {
 function App() {
   return (
     <div className="App">
-      <OSMSearchResults
-        targetEntity="drinking water"
-        displayName="Water Fountains"
-        sliceItemNameFrom={0}
-        sliceItemNameTo={2}
-      />
-      <OSMSearchResults
-        targetEntity="toilet"
-        displayName="Restrooms"
-        sliceItemNameFrom={1}
-        sliceItemNameTo={3}
-      />
+      <div className="wrap-container">
+        <OSMSearchResults
+          targetEntity="drinking water"
+          displayName="Water Fountains"
+          sliceItemNameFrom={0}
+          sliceItemNameTo={2}
+        />
+        <OSMSearchResults
+          targetEntity="toilet"
+          displayName="Restrooms"
+          sliceItemNameFrom={1}
+          sliceItemNameTo={3}
+        />
+      </div>
       <footer></footer>
     </div>
   );

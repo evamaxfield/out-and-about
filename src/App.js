@@ -1,6 +1,5 @@
 import React from "react";
 import { NominatimJS } from "nominatim-search";
-import ReactGA from "react-ga";
 
 // From: https://www.geodatasource.com/developers/javascript
 // Minor change to always return miles and kilometers as object
@@ -123,7 +122,6 @@ class OSMSearchResults extends React.Component {
 }
 
 function App() {
-  ReactGA.initialize("UA-108611658-3");
   return (
     <div className="App">
       <header>
